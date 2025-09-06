@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BU.Style - Fashion Rating Community</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1a0f1a 0%, #2d1b2e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: rgba(26, 15, 26, 0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid #ff4d8d;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(255, 77, 141, 0.2);
+        }
+
+        .logo {
+            font-family: 'Inter', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff4d8d, #ff80ab, #ffc1cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+        }
+
+        .main-content {
+            margin-top: 100px;
+            padding: 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 2.5rem 0 2rem 0;
+            background: linear-gradient(45deg, #ff4d8d, #ff80ab, #ffc1cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+        }
+
+        .voting-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 2.5rem 0;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255, 77, 141, 0.1), rgba(255, 192, 204, 0.05));
+            border-radius: 20px;
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #ff4d8d;
+            box-shadow: 0 15px 35px rgba(255, 77, 141, 0.3);
+        }
+
+        .profile-card:hover::before {
+            background: linear-gradient(45deg, rgba(255, 77, 141, 0.15), rgba(255, 192, 204, 0.08));
+        }
+
+        .profile-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem auto;
+            border: 4px solid #ff4d8d;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 77, 141, 0.25);
+        }
+
+        .profile-card:hover .profile-photo {
+            border-color: #ff80ab;
+            box-shadow: 0 12px 30px rgba(255, 77, 141, 0.4);
+            transform: scale(1.03);
+        }
+
+        .profile-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #ff80ab;
+            margin-bottom: 0.8rem;
+        }
+
+        .profile-bio {
+            color: #e0e0e0;
+            font-size: 1rem;
+            line-height: 1.5;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+        }
+
+        .btn-primary {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(45deg, #ff4d8d, #ff80ab);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 20px rgba(255, 77, 141, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 77, 141, 0.4);
+            background: linear-gradient(45deg, #ff80ab, #ffc1cc);
+        }
+
+        .btn-secondary {
+            font-family: 'Inter', sans-serif;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 77, 141, 0.3);
+            padding: 10px 25px;
+            border-radius: 25px;
+            color: white;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 77, 141, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 500px;
+            margin: 2rem auto;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 77, 141, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            color: #ff80ab;
+            font-weight: 500;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid rgba(255, 77, 141, 0.3);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff4d8d;
+            box-shadow: 0 0 15px rgba(255, 77, 141, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .leaderboard {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 77, 141, 0.2);
+        }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            padding: 1.2rem;
+            margin: 0.8rem 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border-left: 4px solid #ff4d8d;
+            transition: all 0.3s ease;
+        }
+
+        .leaderboard-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
+        }
+
+        .leaderboard-rank {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ff4d8d;
+            margin-right: 1.2rem;
+            min-width: 50px;
+        }
+
+        .leaderboard-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1.2rem;
+            border: 2px solid #ff80ab;
+        }
+
+        .leaderboard-info {
+            flex: 1;
+        }
+
+        .leaderboard-name {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: #ff80ab;
+            margin-bottom: 0.3rem;
+        }
+
+        .leaderboard-votes {
+            color: #cccccc;
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .timer-container {
+            text-align: center;
+            margin: 2.5rem 0;
+            padding: 1.5rem;
+            background: rgba(255, 77, 141, 0.12);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 77, 141, 0.25);
+        }
+
+        .timer {
+            font-family: 'Inter', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ff4d8d;
+            margin: 0.8rem 0;
+        }
+
+        .nav-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: rgba(26, 15, 26, 0.98);
+            min-width: 200px;
+            border-radius: 12px;
+            border: 1px solid #ff4d8d;
+            z-index: 1001;
+            margin-top: 12px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transform: translateY(-8px);
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-content.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-radius: 10px;
+            margin: 6px;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(255, 77, 141, 0.15);
+            color: #ff80ab;
+        }
+
+        .dropdown-content a.danger:hover {
+            background: rgba(220, 53, 69, 0.15);
+            color: #ff6b6b;
+        }
+
+        .vote-animation {
+            animation: voteSuccess 0.6s ease;
+        }
+
+        @keyframes voteSuccess {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1) rotate(2deg); }
+            100% { transform: scale(1); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .profile-upload {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-preview {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 1rem auto;
+            border: 4px solid #ff4d8d;
+            display: block;
+            box-shadow: 0 8px 25px rgba(255, 77, 141, 0.25);
+        }
+
+        .upload-btn {
+            background: rgba(255, 77, 141, 0.12);
+            border: 2px dashed #ff4d8d;
+            padding: 2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .upload-btn:hover {
+            background: rgba(255, 77, 141, 0.2);
+            border-color: #ff80ab;
+        }
+
+        .welcome-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #ff4d8d, #ff80ab, #ffc1cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: #e0e0e0;
+        }
+
+        .no-profiles-message {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            margin: 2rem auto;
+            max-width: 550px;
+        }
+
+        .no-profiles-message h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #ff80ab;
+            margin-bottom: 1rem;
+        }
+
+        .no-profiles-message p {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            color: #cccccc;
+            line-height: 1.5;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            color: #cccccc;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 77, 141, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .voting-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .profile-photo {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .welcome-text {
+                font-size: 2.5rem;
+            }
+            
+            .main-content {
+                padding: 1rem;
+                margin-top: 80px;
+            }
+            
+            .form-container {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="logo">BU.Style</div>
+            <div id="userNav" class="hidden">
+                <div class="nav-dropdown">
+                    <button id="dropdownToggle" class="btn-primary">
+                        <i class="fas fa-user"></i> <span id="userNameNav"></span> <i class="fas fa-chevron-down ml-2"></i>
+                    </button>
+                    <div id="dropdownContent" class="dropdown-content">
+                        <a href="#" onclick="showMyProfile()"><i class="fas fa-user-circle"></i> My Profile</a>
+                        <a href="#" onclick="showLeaderboard()"><i class="fas fa-trophy"></i> Leaderboard</a>
+                        <a href="#" onclick="deleteAccount()" class="danger"><i class="fas fa-trash-alt"></i> Delete Account</a>
+                        <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <!-- Landing Page -->
+        <div id="landingPage" class="text-center">
+            <h1 class="welcome-text">
+                Welcome to BU.Style
+            </h1>
+            <p class="subtitle-text">Discover and rate the latest fashion trends in our community</p>
+            
+            <div class="flex justify-center space-x-6 mt-8">
+                <button onclick="showSignup()" class="btn-primary">
+                    <i class="fas fa-user-plus"></i> Sign Up
+                </button>
+                <button onclick="showLogin()" class="btn-secondary">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </div>
+        </div>
+
+        <!-- Signup Form -->
+        <div id="signupPage" class="hidden">
+            <div class="form-container">
+                <h2 class="text-3xl font-bold text-center mb-6 text-pink-400">Join BU.Style</h2>
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label for="signupUsername">Username</label>
+                        <input type="text" id="signupUsername" required placeholder="Choose a unique username">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" required placeholder="Create a secure password">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" required placeholder="Re-enter your password">
+                    </div>
+                    <div class="form-group">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="ageConfirm" required class="mr-3">
+                            <span>I confirm that I'm participating voluntarily and am over 18 years old</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-primary w-full">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                    <p class="text-center mt-6 text-lg">
+                        Already have an account? 
+                        <a href="#" onclick="showLogin()" class="text-pink-400 hover:text-pink-300 underline">Login</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Login Form -->
+        <div id="loginPage" class="hidden">
+            <div class="form-container">
+                <h2 class="text-3xl font-bold text-center mb-6 text-pink-400">Welcome Back</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginUsername">Username</label>
+                        <input type="text" id="loginUsername" required placeholder="Enter your username">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" required placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="btn-primary w-full">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                    <p class="text-center mt-6 text-lg">
+                        Don't have an account? 
+                        <a href="#" onclick="showSignup()" class="text-pink-400 hover:text-pink-300 underline">Sign Up</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Profile Creation -->
+        <div id="profileCreationPage" class="hidden">
+            <div class="form-container">
+                <h2 class="text-3xl font-bold text-center mb-6 text-pink-400">Create Your Profile</h2>
+                <form id="profileForm">
+                    <div class="profile-upload">
+                        <img id="profilePreview" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Profile Preview" class="profile-preview">
+                        <div class="upload-btn" onclick="document.getElementById('photoUpload').click()">
+                            <i class="fas fa-camera text-2xl mb-2"></i>
+                            <p>Click to upload your photo</p>
+                        </div>
+                        <input type="file" id="photoUpload" accept="image/*" style="display: none;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="displayName">Display Name</label>
+                        <input type="text" id="displayName" required maxlength="30" placeholder="How would you like to be known?">
+                    </div>
+                    <div class="form-group">
+                        <label for="bio">Bio (150 characters max)</label>
+                        <textarea id="bio" rows="4" maxlength="150" placeholder="Tell us about your style..."></textarea>
+                        <div class="text-right text-sm text-gray-400 mt-1">
+                            <span id="bioCount">0</span>/150
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary w-full">
+                        <i class="fas fa-save"></i> Save Profile
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main Voting Interface -->
+        <div id="votingPage" class="hidden">
+            <h2 class="section-title">Who has the better style?</h2>
+            
+            <div id="votingContainer" class="voting-container">
+                <!-- Profile cards will be dynamically generated here -->
+            </div>
+            
+            <div id="noProfilesMessage" class="no-profiles-message hidden">
+                <h3>No Profiles Available</h3>
+                <p>Be the first to join! Invite friends to start the fashion rating fun!</p>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button onclick="loadNewProfiles()" class="btn-primary">
+                    <i class="fas fa-refresh"></i> Show Different Styles
+                </button>
+            </div>
+        </div>
+
+        <!-- Leaderboard -->
+        <div id="leaderboardPage" class="hidden">
+            <h2 class="section-title">Style Leaderboard</h2>
+            
+            <div class="timer-container">
+                <p class="text-lg">Next reset in:</p>
+                <div class="timer" id="resetTimer">--:--:--</div>
+                <p class="text-sm text-gray-300 mt-2">Votes reset daily at midnight</p>
+            </div>
+            
+            <div class="leaderboard" id="leaderboardContainer">
+                <!-- Leaderboard items will be dynamically generated here -->
+            </div>
+            
+            <div class="text-center mt-8">
+                <button onclick="showVoting()" class="btn-primary">
+                    <i class="fas fa-vote-yea"></i> Back to Voting
+                </button>
+            </div>
+        </div>
+
+        <!-- Profile Management -->
+        <div id="profileManagePage" class="hidden">
+            <div class="form-container">
+                <h2 class="text-3xl font-bold text-center mb-6 text-pink-400">Edit Profile</h2>
+                <form id="editProfileForm">
+                    <div class="profile-upload">
+                        <img id="editProfilePreview" src="" alt="Profile Preview" class="profile-preview">
+                        <div class="upload-btn" onclick="document.getElementById('editPhotoUpload').click()">
+                            <i class="fas fa-camera text-2xl mb-2"></i>
+                            <p>Change Your Photo</p>
+                        </div>
+                        <input type="file" id="editPhotoUpload" accept="image/*" style="display: none;">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editDisplayName">Display Name</label>
+                        <input type="text" id="editDisplayName" required maxlength="30">
+                    </div>
+                    <div class="form-group">
+                        <label for="editBio">Bio (150 characters max)</label>
+                        <textarea id="editBio" rows="4" maxlength="150"></textarea>
+                        <div class="text-right text-sm text-gray-400 mt-1">
+                            <span id="editBioCount">0</span>/150
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary w-full">
+                        <i class="fas fa-save"></i> Update Profile
+                    </button>
+                </form>
+                
+                <div class="text-center mt-8">
+                    <button onclick="showVoting()" class="btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Voting
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>BU.Style &copy; 2025 - developed by Churchil Jain - Connect with fashion enthusiasts worldwide</p>
+    </footer>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    
+    <script>
+        console.log('Starting Firebase initialization...');
+        
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBMTWWC81Fkm-XBaaLZUL6Fd6sv8JJFMIg",
+            authDomain: "bulookshub-1e20c.firebaseapp.com",
+            projectId: "bulookshub-1e20c",
+            storageBucket: "bulookshub-1e20c.firebasestorage.app",
+            messagingSenderId: "1015585786589",
+            appId: "1:1015585786589:web:f252e9bd8c34433c686934"
+        };
+
+        // Initialize Firebase
+        let auth, db;
+        try {
+            firebase.initializeApp(firebaseConfig);
+            auth = firebase.auth();
+            db = firebase.firestore();
+            console.log('Firebase initialized successfully');
+        } catch (error) {
+            console.error('Firebase initialization error:', error);
+        }
+
+        // Global variables
+        let currentUser = null;
+        let currentMatchup = [];
+        let allProfiles = [];
+        let unsubscribeProfiles = null;
+        let unsubscribeVotes = null;
+        let isInitialized = false;
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM Content Loaded');
+            console.log('Signup form exists:', !!document.getElementById('signupForm'));
+            console.log('Login form exists:', !!document.getElementById('loginForm'));
+            
+            try {
+                initializeApp();
+                setupEventListeners();
+                setupDropdownNavigation();
+                setupOfflineHandling();
+            } catch (error) {
+                console.error('Error during app initialization:', error);
+                alert('Error initializing app: ' + error.message);
+            }
+        });
+
+        // Utility functions
+        function isOnline() {
+            return navigator.onLine;
+        }
+
+        function showOfflineMessage() {
+            // Create a simple offline notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #ff4d8d;
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                z-index: 10000;
+                font-family: 'Inter', sans-serif;
+                font-weight: 500;
+                box-shadow: 0 4px 15px rgba(255, 77, 141, 0.3);
+            `;
+            notification.textContent = 'You are offline. Some features may not work properly.';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 5000);
+        }
+
+        function showLoadingState(elementId, show = true) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                if (show) {
+                    element.style.opacity = '0.6';
+                    element.style.pointerEvents = 'none';
+                } else {
+                    element.style.opacity = '1';
+                    element.style.pointerEvents = 'auto';
+                }
+            }
+        }
+
+        // Global error handler
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('Unhandled promise rejection:', event.reason);
+            alert('Error: ' + event.reason);
+        });
+
+        window.addEventListener('error', function(event) {
+            console.error('Global error:', event.error);
+            alert('Error: ' + event.error);
+        });
+
+        function setupDropdownNavigation() {
+            const dropdownToggle = document.getElementById('dropdownToggle');
+            const dropdownContent = document.getElementById('dropdownContent');
+            
+            // Toggle dropdown on button click
+            dropdownToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                dropdownContent.classList.toggle('show');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.nav-dropdown')) {
+                    dropdownContent.classList.remove('show');
+                }
+            });
+            
+            // Keep dropdown open when clicking inside it
+            dropdownContent.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        }
+
+        function setupOfflineHandling() {
+            window.addEventListener('online', () => {
+                console.log('Connection restored');
+                if (!isOnline()) {
+                    showOfflineMessage();
+                }
+            });
+
+            window.addEventListener('offline', () => {
+                console.log('Connection lost');
+                showOfflineMessage();
+            });
+        }
+
+        async function initializeApp() {
+            try {
+                console.log('Initializing app...');
+                
+                if (!auth) {
+                    throw new Error('Firebase auth not initialized');
+                }
+                
+                // Set up Firebase Auth state listener
+                auth.onAuthStateChanged(async (user) => {
+                    try {
+                        if (user) {
+                            currentUser = {
+                                uid: user.uid,
+                                email: user.email,
+                                username: user.displayName || user.email.split('@')[0]
+                            };
+                            showUserInterface();
+                            await setupRealtimeListeners();
+                        } else {
+                            currentUser = null;
+                            cleanupListeners();
+                            showLandingPage();
+                        }
+                    } catch (error) {
+                        console.error('Error in auth state change:', error);
+                    }
+                });
+
+                // Start the reset timer
+                updateResetTimer();
+                setInterval(updateResetTimer, 1000);
+                
+                isInitialized = true;
+                console.log('App initialized successfully');
+            } catch (error) {
+                console.error('Error initializing app:', error);
+                alert('Error initializing app: ' + error.message);
+                showLandingPage();
+            }
+        }
+
+        async function setupRealtimeListeners() {
+            if (!currentUser) return;
+
+            try {
+                // Set up real-time listener for all user profiles
+                unsubscribeProfiles = db.collection('users').onSnapshot((querySnapshot) => {
+                    allProfiles = [];
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        if (data.profile) {
+                            allProfiles.push({
+                                id: doc.id,
+                                username: data.username,
+                                ...data.profile
+                            });
+                        }
+                    });
+                    
+                    if (document.getElementById('votingPage').classList.contains('hidden') === false) {
+                        loadNewProfiles();
+                    }
+                    if (document.getElementById('leaderboardPage').classList.contains('hidden') === false) {
+                        updateLeaderboard();
+                    }
+                });
+            } catch (error) {
+                console.error('Error setting up real-time listeners:', error);
+            }
+        }
+
+        function cleanupListeners() {
+            if (unsubscribeProfiles) {
+                unsubscribeProfiles();
+                unsubscribeProfiles = null;
+            }
+            if (unsubscribeVotes) {
+                unsubscribeVotes();
+                unsubscribeVotes = null;
+            }
+        }
+
+        function setupEventListeners() {
+            console.log('Setting up event listeners...');
+            
+            // Signup form
+            const signupForm = document.getElementById('signupForm');
+            if (signupForm) {
+                signupForm.addEventListener('submit', handleSignup);
+                console.log('Signup form listener added');
+            }
+            
+            // Login form
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', handleLogin);
+                console.log('Login form listener added');
+            }
+            
+            // Profile creation form
+            const profileForm = document.getElementById('profileForm');
+            if (profileForm) {
+                profileForm.addEventListener('submit', handleProfileCreation);
+                console.log('Profile form listener added');
+            }
+            
+            // Profile editing form
+            const editProfileForm = document.getElementById('editProfileForm');
+            if (editProfileForm) {
+                editProfileForm.addEventListener('submit', handleProfileEdit);
+                console.log('Edit profile form listener added');
+            }
+            
+            // Photo upload handlers
+            const photoUpload = document.getElementById('photoUpload');
+            if (photoUpload) {
+                photoUpload.addEventListener('change', handlePhotoUpload);
+            }
+            
+            const editPhotoUpload = document.getElementById('editPhotoUpload');
+            if (editPhotoUpload) {
+                editPhotoUpload.addEventListener('change', handleEditPhotoUpload);
+            }
+            
+            // Bio character counter
+            const bio = document.getElementById('bio');
+            if (bio) {
+                bio.addEventListener('input', updateBioCount);
+            }
+            
+            const editBio = document.getElementById('editBio');
+            if (editBio) {
+                editBio.addEventListener('input', updateEditBioCount);
+            }
+            
+            console.log('Event listeners setup complete');
+        }
+
+        // Navigation functions
+        function showLandingPage() {
+            hideAllPages();
+            document.getElementById('landingPage').classList.remove('hidden');
+            closeDropdown();
+        }
+
+        function showSignup() {
+            hideAllPages();
+            document.getElementById('signupPage').classList.remove('hidden');
+            closeDropdown();
+        }
+
+        function showLogin() {
+            hideAllPages();
+            document.getElementById('loginPage').classList.remove('hidden');
+            closeDropdown();
+        }
+
+        function showProfileCreation() {
+            hideAllPages();
+            document.getElementById('profileCreationPage').classList.remove('hidden');
+            closeDropdown();
+        }
+
+        function showVoting() {
+            hideAllPages();
+            document.getElementById('votingPage').classList.remove('hidden');
+            loadNewProfiles();
+            closeDropdown();
+        }
+
+        function showLeaderboard() {
+            hideAllPages();
+            document.getElementById('leaderboardPage').classList.remove('hidden');
+            updateLeaderboard();
+            closeDropdown();
+        }
+
+        function showMyProfile() {
+            hideAllPages();
+            document.getElementById('profileManagePage').classList.remove('hidden');
+            loadCurrentUserProfile();
+            closeDropdown();
+        }
+
+        function closeDropdown() {
+            const dropdownContent = document.getElementById('dropdownContent');
+            if (dropdownContent) {
+                dropdownContent.classList.remove('show');
+            }
+        }
+
+        function hideAllPages() {
+            const pages = ['landingPage', 'signupPage', 'loginPage', 'profileCreationPage', 'votingPage', 'leaderboardPage', 'profileManagePage'];
+            pages.forEach(pageId => {
+                document.getElementById(pageId).classList.add('hidden');
+            });
+        }
+
+        function showUserInterface() {
+            document.getElementById('userNav').classList.remove('hidden');
+            document.getElementById('userNameNav').textContent = currentUser.username;
+            showVoting();
+        }
+
+        // Authentication functions
+        async function handleSignup(e) {
+            console.log('handleSignup called');
+            e.preventDefault();
+            
+            const username = document.getElementById('signupUsername').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const ageConfirm = document.getElementById('ageConfirm').checked;
+            
+            console.log('Signup data:', { username, password: password ? '***' : 'empty', confirmPassword: confirmPassword ? '***' : 'empty', ageConfirm });
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            if (!ageConfirm) {
+                alert('You must confirm that you are over 18 and participating voluntarily.');
+                return;
+            }
+
+            if (username.length < 3) {
+                alert('Username must be at least 3 characters long!');
+                return;
+            }
+
+            if (!isOnline()) {
+                alert('You need to be online to create an account.');
+                return;
+            }
+
+            showLoadingState('signupForm', true);
+
+            try {
+                // Create email from username for Firebase Auth
+                const email = `${username}@bustyle.local`;
+                
+                // Create Firebase user
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                
+                // Create user profile in Firestore
+                await db.collection('users').doc(userCredential.user.uid).set({
+                    username: username,
+                    email: email,
+                    profile: null,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                // Clear form
+                document.getElementById('signupForm').reset();
+                
+                showProfileCreation();
+            } catch (error) {
+                console.error('Signup error:', error);
+                if (error.code === 'auth/email-already-in-use') {
+                    alert('Username already exists! Please choose a different username.');
+                } else if (error.code === 'auth/weak-password') {
+                    alert('Password is too weak. Please choose a stronger password.');
+                } else {
+                    alert('Error creating account. Please try again.');
+                }
+            } finally {
+                showLoadingState('signupForm', false);
+            }
+        }
+
+        async function handleLogin(e) {
+            console.log('handleLogin called');
+            e.preventDefault();
+            
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            console.log('Login data:', { username, password: password ? '***' : 'empty' });
+
+            if (!isOnline()) {
+                alert('You need to be online to login.');
+                return;
+            }
+
+            showLoadingState('loginForm', true);
+
+            try {
+                // Create email from username for Firebase Auth
+                const email = `${username}@bustyle.local`;
+                
+                // Sign in with Firebase
+                await auth.signInWithEmailAndPassword(email, password);
+                
+                // Clear form
+                document.getElementById('loginForm').reset();
+                
+                // The onAuthStateChange listener will handle the rest
+            } catch (error) {
+                console.error('Login error:', error);
+                if (error.code === 'auth/user-not-found') {
+                    alert('Username not found! Please check your username or sign up.');
+                } else if (error.code === 'auth/wrong-password') {
+                    alert('Incorrect password! Please try again.');
+                } else if (error.code === 'auth/invalid-email') {
+                    alert('Invalid username format!');
+                } else {
+                    alert('Error logging in. Please try again.');
+                }
+            } finally {
+                showLoadingState('loginForm', false);
+            }
+        }
+
+        async function logout() {
+            try {
+                await auth.signOut();
+                // The onAuthStateChange listener will handle the rest
+            } catch (error) {
+                console.error('Logout error:', error);
+                alert('Error logging out. Please try again.');
+            }
+            closeDropdown();
+        }
+
+        async function deleteAccount() {
+            if (!currentUser) return;
+            
+            const confirmation = confirm('Are you sure you want to delete your account? This action cannot be undone.');
+            
+            if (!confirmation) return;
+
+            if (!isOnline()) {
+                alert('You need to be online to delete your account.');
+                return;
+            }
+
+            try {
+                // Delete user data from Firestore
+                await deleteUserAccount(currentUser.uid);
+                
+                // Delete Firebase Auth user
+                await auth.currentUser.delete();
+                
+                alert('Your account has been successfully deleted.');
+            } catch (error) {
+                console.error('Delete account error:', error);
+                alert('Error deleting account. Please try again.');
+            }
+        }
+
+        // Profile functions
+        function handlePhotoUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profilePreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function handleEditPhotoUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('editProfilePreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function updateBioCount() {
+            const bio = document.getElementById('bio').value;
+            document.getElementById('bioCount').textContent = bio.length;
+        }
+
+        function updateEditBioCount() {
+            const bio = document.getElementById('editBio').value;
+            document.getElementById('editBioCount').textContent = bio.length;
+        }
+
+        async function handleProfileCreation(e) {
+            e.preventDefault();
+            
+            const displayName = document.getElementById('displayName').value.trim();
+            const bio = document.getElementById('bio').value.trim();
+            const photo = document.getElementById('profilePreview').src;
+
+            if (displayName.length < 2) {
+                alert('Display name must be at least 2 characters long!');
+                return;
+            }
+
+            if (!isOnline()) {
+                alert('You need to be online to create your profile.');
+                return;
+            }
+
+            showLoadingState('profileForm', true);
+
+            try {
+                const profileData = {
+                    username: currentUser.username,
+                    email: currentUser.email,
+                    profile: {
+                        displayName: displayName,
+                        bio: bio,
+                        photo: photo
+                    },
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                await db.collection('users').doc(currentUser.uid).update(profileData);
+                
+                // Clear form
+                document.getElementById('profileForm').reset();
+                
+                // The real-time listener will update the UI
+            } catch (error) {
+                console.error('Profile creation error:', error);
+                alert('Error creating profile. Please try again.');
+            } finally {
+                showLoadingState('profileForm', false);
+            }
+        }
+
+        async function loadCurrentUserProfile() {
+            try {
+                const userDoc = await db.collection('users').doc(currentUser.uid).get();
+                const userData = userDoc.data();
+                
+                if (userData && userData.profile) {
+                    document.getElementById('editProfilePreview').src = userData.profile.photo;
+                    document.getElementById('editDisplayName').value = userData.profile.displayName;
+                    document.getElementById('editBio').value = userData.profile.bio;
+                    updateEditBioCount();
+                }
+            } catch (error) {
+                console.error('Error loading user profile:', error);
+                alert('Error loading profile. Please try again.');
+            }
+        }
+
+        async function handleProfileEdit(e) {
+            e.preventDefault();
+            
+            const displayName = document.getElementById('editDisplayName').value.trim();
+            const bio = document.getElementById('editBio').value.trim();
+            const photo = document.getElementById('editProfilePreview').src;
+
+            if (displayName.length < 2) {
+                alert('Display name must be at least 2 characters long!');
+                return;
+            }
+
+            if (!isOnline()) {
+                alert('You need to be online to update your profile.');
+                return;
+            }
+
+            showLoadingState('editProfileForm', true);
+
+            try {
+                const profileData = {
+                    username: currentUser.username,
+                    email: currentUser.email,
+                    profile: {
+                        displayName: displayName,
+                        bio: bio,
+                        photo: photo
+                    },
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                await db.collection('users').doc(currentUser.uid).update(profileData);
+                
+                alert('Profile updated successfully!');
+                showVoting();
+            } catch (error) {
+                console.error('Profile edit error:', error);
+                alert('Error updating profile. Please try again.');
+            } finally {
+                showLoadingState('editProfileForm', false);
+            }
+        }
+
+        // Voting functions
+        function loadNewProfiles() {
+            if (allProfiles.length < 2) {
+                showNoProfilesMessage();
+                return;
+            }
+            
+            const availableProfiles = allProfiles.filter(profile => profile.id !== currentUser.uid);
+            
+            if (availableProfiles.length < 2) {
+                showNoProfilesMessage();
+                return;
+            }
+            
+            // Get two random profiles
+            const shuffled = availableProfiles.sort(() => 0.5 - Math.random());
+            currentMatchup = shuffled.slice(0, 2);
+            
+            hideNoProfilesMessage();
+            displayVotingProfiles();
+        }
+
+        function showNoProfilesMessage() {
+            document.getElementById('votingContainer').innerHTML = '';
+            document.getElementById('noProfilesMessage').classList.remove('hidden');
+        }
+
+        function hideNoProfilesMessage() {
+            document.getElementById('noProfilesMessage').classList.add('hidden');
+        }
+
+        function displayVotingProfiles() {
+            const container = document.getElementById('votingContainer');
+            container.innerHTML = '';
+
+            currentMatchup.forEach((profile, index) => {
+                const card = document.createElement('div');
+                card.className = 'profile-card';
+                card.onclick = () => vote(profile.id);
+                
+                card.innerHTML = `
+                    <img src="${profile.photo}" alt="${profile.displayName}" class="profile-photo">
+                    <div class="profile-name">${profile.displayName}</div>
+                    <div class="profile-bio">${profile.bio}</div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        async function vote(votedForUserId) {
+            console.log('Vote function called for user:', votedForUserId);
+            console.log('Current user:', currentUser);
+            console.log('DB object:', db);
+            console.log('Firebase object:', firebase);
+            
+            if (!isOnline()) {
+                alert('You need to be online to vote.');
+                return;
+            }
+
+            if (!currentUser) {
+                alert('You must be logged in to vote.');
+                return;
+            }
+
+            if (!db) {
+                alert('Database not initialized. Please refresh the page.');
+                return;
+            }
+
+            try {
+                // Add vote to Firestore
+                const today = new Date().toDateString();
+                console.log('Adding vote to Firestore...');
+                console.log('Vote data:', {
+                    votedFor: votedForUserId,
+                    votedBy: currentUser.uid,
+                    date: today
+                });
+                
+                const voteData = {
+                    votedFor: votedForUserId,
+                    votedBy: currentUser.uid,
+                    date: today,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                };
+                
+                console.log('Vote data prepared:', voteData);
+                
+                const result = await db.collection('dailyVotes').add(voteData);
+                console.log('Vote added successfully with ID:', result.id);
+                
+                // Show animation
+                const card = event.target.closest('.profile-card');
+                if (card) {
+                    card.classList.add('vote-animation');
+                }
+                
+                setTimeout(() => {
+                    loadNewProfiles();
+                }, 600);
+            } catch (error) {
+                console.error('Vote error details:', error);
+                console.error('Error name:', error.name);
+                console.error('Error message:', error.message);
+                console.error('Error stack:', error.stack);
+                alert('Error submitting vote: ' + error.message);
+            }
+        }
+
+        // Leaderboard functions
+        async function updateLeaderboard() {
+            try {
+                console.log('Updating leaderboard...');
+                const today = new Date().toDateString();
+                const votesSnapshot = await db.collection('dailyVotes').where('date', '==', today).get();
+                
+                const todaysVotes = {};
+                votesSnapshot.forEach(doc => {
+                    const data = doc.data();
+                    const userId = data.votedFor;
+                    todaysVotes[userId] = (todaysVotes[userId] || 0) + 1;
+                });
+                
+                console.log('Today\'s votes:', todaysVotes);
+                
+                const leaderboard = allProfiles.map(profile => ({
+                    ...profile,
+                    votes: todaysVotes[profile.id] || 0
+                })).sort((a, b) => b.votes - a.votes).slice(0, 10);
+                
+                const container = document.getElementById('leaderboardContainer');
+                
+                if (leaderboard.length === 0) {
+                    container.innerHTML = '<div class="text-center text-gray-400 text-lg">No votes yet today! Be the first to start voting!</div>';
+                    return;
+                }
+                
+                container.innerHTML = '';
+                
+                leaderboard.forEach((profile, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'leaderboard-item';
+                    
+                    item.innerHTML = `
+                        <div class="leaderboard-rank">#${index + 1}</div>
+                        <img src="${profile.photo}" alt="${profile.displayName}" class="leaderboard-photo">
+                        <div class="leaderboard-info">
+                            <div class="leaderboard-name">${profile.displayName}</div>
+                            <div class="leaderboard-votes">${profile.votes} votes today</div>
+                        </div>
+                    `;
+                    
+                    container.appendChild(item);
+                });
+                
+                console.log('Leaderboard updated successfully');
+            } catch (error) {
+                console.error('Error updating leaderboard:', error);
+                const container = document.getElementById('leaderboardContainer');
+                container.innerHTML = '<div class="text-center text-gray-400 text-lg">Error loading leaderboard: ' + error.message + '</div>';
+            }
+        }
+
+        // Timer functions
+        function updateResetTimer() {
+            const now = new Date();
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(0, 0, 0, 0);
+            
+            const timeLeft = tomorrow.getTime() - now.getTime();
+            const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            const timerElement = document.getElementById('resetTimer');
+            if (timerElement) {
+                timerElement.textContent = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }
+    </script>
+</body>
+</html>
