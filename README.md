@@ -1,37 +1,25 @@
-This is my first deployed web application, built to practice core front-end skills and explore dynamic, state-driven user interactions. This project was developed by focusing on the coding flow, embracing "vibe coding" to quickly move from concept to working feature.
+This is my first successfully deployed web application, built to practice core front-end skills and explore dynamic, state-driven user interactions. The entire project was an exercise in rapid execution; approximately 60% of the features were completed using a vibe coding flow with the assistance of AI tools to maintain speed.
+
+💡 Inspiration
+The core concept for the ranking and rating algorithm was inspired by the mechanics and ideas presented in the movie, "The Social Network."
 
 🌟 Features
-User Sign-up and Profiles: Users can create and manage their unique profiles.
+User Sign-up and Profiles: Allows users to create unique profiles.
 
-Dynamic Two-Way Rating: Users are presented with two random profiles and can vote for their favorite with a simple click.
+Dynamic Two-Way Rating System: Presents users with two random profiles to vote for their preference. The display updates instantly.
 
-Real-time Interaction: The unselected profile disappears, and a new profile is instantly loaded, keeping the ranking experience smooth.
+Top 10 Leaderboard: Profiles are tracked and ranked, with the leaderboard resetting every 24 hours.
 
-Top 10 Leaderboard: The most-voted profiles are dynamically tracked and displayed on a Top 10 Leaderboard.
+🛠️ Tech Stack & Development
+HTML & CSS: For structuring the site and design.
 
-Daily Reset: The Leaderboard automatically resets every 24 hours to keep the competition fresh.
+JavaScript (Basic Use): Only a minimal amount of JS was used to handle the core rating logic and dynamic updates.
 
-🛠️ Tech Stack
-This project was built primarily using foundational web technologies:
+AI Code Assistance (Vibe Coding): Utilized heavily (60% of development) to facilitate a quick, focused, and intuitive coding workflow.
 
-HTML: For the basic structure and semantic markup.
+🛣️ Development Milestones
+Deployment: First successfully deployed web application.
 
-CSS: For styling, responsiveness, and visual appeal.
+Algorithm Design: Successfully implemented a dynamic ranking algorithm based on real-world inspiration.
 
-JavaScript (Basic Skill): For managing the core logic, handling user clicks, updating the profile display, and managing the Leaderboard state.
-
-🛣️ Development Journey
-This project was a significant milestone:
-
-Deployment: This marks my first successfully deployed site.
-
-Vibe Coding: The entire project was developed through a focused, continuous coding flow, allowing me to build features rapidly.
-
-Skill Application: It served as a practical exercise to solidify my understanding of basic JavaScript logic, DOM manipulation, and fundamental front-end principles.
-
-🔮 Future Enhancements (Ideas)
-Add user authentication and secure password hashing.
-
-Implement proper database integration instead of local storage/simple state management.
-
-Improve profile matching algorithms.
+Execution Focus: Demonstrated my ability to rapidly deliver a complex, feature-rich project with limited JS knowledge.
